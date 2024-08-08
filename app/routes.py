@@ -1,31 +1,46 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import app, User, db
+from app import app, User, db, models
 from app.forms import SignUpForm, LoginForm
+
 
 @app.route("/")
 def index():
-    return  render_template("index.html")
 
+    return render_template("index.html", )
 
 
 @app.route('/male')
 def male():
-
-    return render_template("male.html")
+    all_shoes = db.session.execute(db.select(models.Sneaker).filter_by(models.Sneaker.gender == "male")).scalars()
+    return render_template("all_shoes_for_gender.html", all_ah=all_shoes)
 
 
 @app.route('/female')
 def female():
-    return "Жіноче"
+    all_shoes = db.session.execute(db.select(models.Sneaker).filter_by(models.Sneaker.gender == "female")).scalars()
+    return render_template("all_shoes_for_gender.html", all_ah=all_shoes)
 
 
-@app.route('/search', methods=['GET'])
-def search():
-    query = request.args.get('q')  # Получаем поисковый запрос
-    results = get_products(query)  # Выполняем поиск по базе данных
-    return render_template('search_results.html', results=results)
+# @app.route('/search', methods=['GET'])
+# def search():
+#     query = request.args.get('q')  # Получаем поисковый запрос
+#     results = get_products(query)  # Выполняем поиск по базе данных
+#     return render_template('search_results.html', results=results)
+
+
+
+
+@app.route('/details/<int:id_shoes>')
+def details_shooze(id_shoes):
+    data_shoes = ...# db.get_or_404(models.Sneaker, id_shoes)
+    return render_template("details_shoes.html",
+                           data = data_shoes)
+
+    return
+
+
 @app.route("/signup/", methods=["GET", "POST"])
 def signup():
     form = SignUpForm()
@@ -44,6 +59,7 @@ def signup():
         db.session.commit()
         return redirect(url_for("login"))
     return render_template("user/signup.html", form=form, title="Signup")
+
 
 @app.route("/user/login/", methods=["GET", "POST"])
 def login():

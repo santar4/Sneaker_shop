@@ -39,33 +39,21 @@
 <main>
 
   <section class="py-5 text-center container">
-
-
         <h1>Try New!</h1>
-
-
   </section>
 
   <div class="container">
-    <div class="product-grid">
-        <a href="model1.html" class="product-card">
-            <img src="static/cholovichi-krosivky-nike-sb-dunk-low-green-lobster-86777256136882.jpg" >
-            <h5>Nike SB Dunk Low "Green Lobster"</h5>
-            <p>Ціна: 5999</p>
 
-        </a>
-        <a href="model2.html" class="product-card">
-            <img src="static/0e8576e420ff9a29d5a9fb061240e0a33936c8ce_1024_1024.jpeg" >
-            <h5>Nike Air Max Plus Phantom Neutral Olive</h5>
-            <p>Ціна: 5500</p>
-        </a>
-        <a href="model3.html" class="product-card">
-            <img src="static/71ABD3FacEL._AC_UY900_.jpg" alt="Кроссовки модель 3">
-            <h5>Nike Air Force 1 Low Supreme</h5>
-            <p>Ціна:10263 </p>
-        </a>
-        <!-- Добавьте больше карточек с моделями при необходимости -->
-    </div>
+    {% for sh in all_ah%}
+      <div class="product-grid">
+          <a href="url_for('details_shooze', id_shoes = sh.id)" class="product-card">
+          <img src="{{sh.image}}">
+          <h5>{{sh.name}}</h5>
+          <p>Ціна: {{sh.price}} usd</p>
+          </a>
+      </div>
+    {% endfor  %}
+
 </div>
 
 

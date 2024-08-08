@@ -15,14 +15,21 @@
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('logout')}}">logout</a>
             </li>
-<nav class="navbar navbar-light bg-light">
-  <div class="container-fluid">
-    <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
+
+          {% if user.is_admin == True %}
+          <li class="nav-item">
+              <a class="nav-link" href="{{url_for('add_new_shioe')}}">add_new_shioes</a>
+          </li>
+          {% endif %}
+            <nav class="navbar navbar-light bg-light">
+              <div class="container-fluid">
+                <form class="d-flex">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+              </div>
+            </nav>
+
           {% else %}
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('login')}}">login</a>
@@ -33,8 +40,6 @@
             </li>
           {% endif %}
         </ul>
-
-
 
     </div>
 
