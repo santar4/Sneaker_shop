@@ -1,0 +1,58 @@
+
+
+{% block content %}
+
+
+
+
+<style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('/static/imgonline-com-ua-2to1-CtoWwnbq3WL.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+}
+
+        .link1 {
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            font-size: 20px;;
+        }
+        .link2 {
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            text-align:center;
+        }
+        .link:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+
+<div class="links">
+        <a class="link1" href="{{ url_for('male') }}">Чоловіче</a>
+        <a class="link2" href="{{ url_for('female') }}">Жіноче</a>
+</div>
+
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,167 @@
+h1 {
+    border: 2px #eee solid;
+    color: green;
+    text-align: center;
+    padding: 10px;
+}
+
+.flashes {
+    background-color: red;
+    text-color: red;
+    text-wide: 20px;
+    text-align: center;
+    }
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"],
+.form-signin input[type="password"] {
+  border-radius: 0;
+  margin-bottom: 10px;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 20px;
+}
+
+/* Стили для полів вводу */
+.form-floating {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.form-floating > .form-control {
+  height: auto;
+  padding: 1rem;
+  border-radius: 0.375rem;
+}
+
+.form-floating > label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.75rem 1rem;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+  top: -0.5rem;
+  left: 0.75rem;
+  font-size: 0.75rem;
+  color: #0d6efd;
+}
+
+/* Стили для картинки */
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 1rem;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        .product-grid {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .product-card {
+            background: #fff;
+            padding: 1rem;
+            margin: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: calc(33.333% - 2rem); /* 3 cards per row with margins */
+            box-sizing: border-box;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .product-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .product-card h3 {
+            margin: 0.5rem 0;
+        }
+        .product-card p {
+            margin: 0.5rem 0;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+        }
+.text-center.container {
+            color: black; /* Устанавливаем цвет текста на черный */
+        }
