@@ -38,18 +38,16 @@
 
 <main>
 
-  <section class="py-5 text-center container">
-        <h1>Try New!</h1>
-  </section>
+
 
   <div class="container">
 
-    {% for sh in all_sh%}
+    {% for sneaker in all_sh%}
       <div class="product-grid">
-          <a href="url_for('details_shooze', id_shoes = sh.id)" class="product-card">
-          <img src="{{sh.image}}">
-          <h5>{{sh.name}}</h5>
-          <p>Ціна: {{sh.price}} usd</p>
+          <a href="{{ url_for('details_shoes', id_shoes=sneaker.id) }}" class="product-card">
+          <img src="{{sneaker.image}}">
+          <h5>{{sneaker.name}}</h5>
+          <p>Ціна: {{sneaker.prize}} </p>
           </a>
       </div>
     {% endfor  %}

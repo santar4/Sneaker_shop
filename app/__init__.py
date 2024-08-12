@@ -7,6 +7,8 @@ app = Flask(__name__)
 app.config["DEBUG"] = True
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 app.config["SECRET_KEY"] = "sdkjl;fgs;dlf"
+app.config['UPLOAD_FOLDER'] = 'static/media/'
+
 
 class Base(DeclarativeBase):
     pass

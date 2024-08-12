@@ -1,10 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
+{% extends "base.html" %}
+
+{% block content %}
 <body>
-$END$
+
+<form action="{{ url_for('add_sneaker') }}" method="POST" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" required>
+
+        <label for="prize">Prize:</label>
+        <input type="number" id="prize" name="prize" step="1" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Unisex">Unisex</option>
+        </select>
+
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image" required>
+
+        <button type="submit">Add Sneaker</button>
+    </form>
 </body>
-</html>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
