@@ -37,9 +37,7 @@ def create_mock_data():
     print("mock data added")
 
 
-
-
 with app.app_context():
-    # db.create_all()
+    db.create_all()
     print("Create database")
     create_mock_data()

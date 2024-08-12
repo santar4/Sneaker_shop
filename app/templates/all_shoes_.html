@@ -45,7 +45,8 @@
     {% for sneaker in all_sh%}
       <div class="product-grid">
           <a href="{{ url_for('details_shoes', id_shoes=sneaker.id) }}" class="product-card">
-          <img src="{{sneaker.image}}">
+<!--          <img src="{{sneaker.image|to_base64}}" alt="{{sneaker.name}}" width="150">-->
+          <img src="{{url_for('media', filename=sneaker.image_name)}}" alt="{{sneaker.name}}" width="150">
           <h5>{{sneaker.name}}</h5>
           <p>Ціна: {{sneaker.prize}} </p>
           </a>
@@ -55,13 +56,4 @@
 </div>
 
 
-
-
-
-
-
-
-
 {% endblock %}
-
-

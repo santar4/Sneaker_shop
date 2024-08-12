@@ -4,6 +4,7 @@ from sqlalchemy import String
 from sqlalchemy.orm import mapped_column, Mapped
 import sqlalchemy as sa
 
+
 class User(UserMixin, db.Model):
     __tablename__ = "user"
 
@@ -19,7 +20,7 @@ class User(UserMixin, db.Model):
         return self.nickname.capitalize()
 
 
-class Sneaker(UserMixin, db.Model):
+class Sneaker(db.Model):
     __tablename__ = "Sneacker"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -27,7 +28,9 @@ class Sneaker(UserMixin, db.Model):
     description: Mapped[str] = mapped_column(String(50), unique=True)
     prize: Mapped[float] = mapped_column(String(50))
     gender: Mapped[str] = mapped_column(String(25))
+
     image: Mapped[bytes] = mapped_column(sa.LargeBinary)
+    image_name: Mapped[str] = mapped_column(sa.String())
 
     def __repr__(self):
         return f"<Sneacker:{self.name}>"

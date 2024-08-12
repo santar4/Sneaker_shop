@@ -6,7 +6,7 @@
     <h1>{{ sneaker.name }}</h1>
 
     <div class="sneaker-image">
-        <img src="{{ sneaker.image }}" alt="{{ sneaker.name }}">
+        <img src="{{sneaker.image|to_base64}}" alt="{{sneaker.name}}" width="150">
     </div>
 
     <div class="sneaker-info">

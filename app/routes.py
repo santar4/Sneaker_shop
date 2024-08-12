@@ -6,13 +6,15 @@ from flask_login import login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 
-from app import app, User, db,  models
+from app import app, User, db, models
 from app.models import Sneaker
 from app.forms import SignUpForm, LoginForm
 
+
 @app.route("/")
 def index():
-    return  render_template("index.html")
+    return render_template("index.html")
+
 
 @app.route('/add-sneaker', methods=['GET', 'POST'])
 def add_sneaker():
@@ -23,30 +25,42 @@ def add_sneaker():
         gender = request.form['gender']
         image_file = request.files['image']
 
-        if image_file:
-            filename = secure_filename(image_file.filename)
-            upload_folder = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            if not os.path.exists(upload_folder):
-                os.makedirs(upload_folder)
+        filename = secure_filename(image_file.filename)
 
-            image_path = os.path.join(upload_folder, filename)
+        upload_folder = app.config['UPLOAD_FOLDER']
+        if not os.path.exists(upload_folder):
+            os.makedirs(upload_folder)
+        image_path = os.path.join(upload_folder, filename)
 
-            if os.path.exists(image_path):
-                flash('File already exists. Please choose a different file.', 'danger')
-                return redirect(url_for('add_sneaker'))
-            image_file.save(image_path)
-
-            with open(image_path, 'rb') as f:
-                image_data = f.read()
-
-            new_sneaker = Sneaker(name=name, description=description, prize=prize, gender=gender, image=image_data)
-            db.session.add(new_sneaker)
-            db.session.commit()
-
-            flash('Sneaker added successfully!', 'success')
+        if os.path.exists(image_path):
+            flash('File already exists. Please choose a different file.', 'danger')
             return redirect(url_for('add_sneaker'))
 
+        image_file.save(image_path)
+
+        with open(image_path, 'rb') as f:
+            image_data = f.read()
+
+        new_sneaker = Sneaker(name=name,
+                              description=description,
+                              prize=prize,
+                              gender=gender,
+                              image=image_data,
+                              image_name=filename
+                              )
+
+        db.session.add(new_sneaker)
+        db.session.commit()
+
+        flash('Sneaker added successfully!', 'success')
+
+        if gender.lower() == "male":
+            return redirect(url_for('male'))
+        else:
+            return redirect(url_for('female'))
+
     return render_template('add_sneaker.html')
+
 
 @app.route('/male')
 def male():
@@ -54,7 +68,6 @@ def male():
         db.select(models.Sneaker).filter(models.Sneaker.gender == "Male")
     ).scalars().all()
     return render_template("all_shoes_.html", all_sh=all_shoes)
-
 
 
 @app.route('/female')
@@ -65,13 +78,12 @@ def female():
     return render_template("all_shoes_.html", all_sh=all_shoes)
 
 
-
-
 @app.route('/details/<int:id_shoes>')
 def details_shoes(id_shoes):
     data_shoes = db.get_or_404(models.Sneaker, id_shoes)
     return render_template("details_shoes.html",
                            sneaker=data_shoes)
+
 
 @app.route("/signup/", methods=["GET", "POST"])
 def signup():
@@ -91,6 +103,7 @@ def signup():
         db.session.commit()
         return redirect(url_for("login"))
     return render_template("user/signup.html", form=form, title="Signup")
+
 
 @app.route("/login/", methods=["GET", "POST"])
 def login():
