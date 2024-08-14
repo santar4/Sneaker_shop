@@ -6,12 +6,12 @@
     <h1>{{ sneaker.name }}</h1>
 
     <div class="sneaker-image">
-        <img src="{{ sneaker.image }}" alt="{{ sneaker.name }}">
+        <img src="data:image/jpeg;base64,{{ sneaker.image|b64encode }}" alt="{{ sneaker.name }}">
     </div>
 
     <div class="sneaker-info">
         <p><strong>Description:</strong> {{ sneaker.description }}</p>
-        <p><strong>Prize:</strong> ${{ sneaker.prize }}</p>
+        <p><strong>Prize:</strong> {{ sneaker.prize }}₴</p>
         <p><strong>Gender:</strong> {{ sneaker.gender }}</p>
     </div>
 

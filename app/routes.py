@@ -19,34 +19,42 @@ def add_sneaker():
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
-        prize = request.form['prize']
+        prize = int(request.form['prize'])
         gender = request.form['gender']
         image_file = request.files['image']
 
         if image_file:
             filename = secure_filename(image_file.filename)
-            upload_folder = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            if not os.path.exists(upload_folder):
-                os.makedirs(upload_folder)
+            upload_folder = app.config['UPLOAD_FOLDER']
 
             image_path = os.path.join(upload_folder, filename)
 
             if os.path.exists(image_path):
                 flash('File already exists. Please choose a different file.', 'danger')
                 return redirect(url_for('add_sneaker'))
-            image_file.save(image_path)
+
+            try:
+                image_file.save(image_path)
+            except Exception as e:
+                flash(f'An error occurred while saving the file: {str(e)}', 'danger')
+                return redirect(url_for('add_sneaker'))
 
             with open(image_path, 'rb') as f:
                 image_data = f.read()
+
 
             new_sneaker = Sneaker(name=name, description=description, prize=prize, gender=gender, image=image_data)
             db.session.add(new_sneaker)
             db.session.commit()
 
+
+            os.remove(image_path)
+
             flash('Sneaker added successfully!', 'success')
             return redirect(url_for('add_sneaker'))
 
     return render_template('add_sneaker.html')
+
 
 @app.route('/male')
 def male():

@@ -19,7 +19,7 @@ class User(UserMixin, db.Model):
         return self.nickname.capitalize()
 
 
-class Sneaker(UserMixin, db.Model):
+class Sneaker(db.Model):
     __tablename__ = "Sneacker"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -28,6 +28,7 @@ class Sneaker(UserMixin, db.Model):
     prize: Mapped[float] = mapped_column(String(50))
     gender: Mapped[str] = mapped_column(String(25))
     image: Mapped[bytes] = mapped_column(sa.LargeBinary)
+
 
     def __repr__(self):
         return f"<Sneacker:{self.name}>"

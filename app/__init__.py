@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from flask_login import LoginManager
@@ -32,3 +32,7 @@ def load_user(user_id: int):
     return user
 
 from app.routes import *
+from app.filter import *
+@app.route("/media/<path:filename>")
+def media(filename):
+    return send_from_directory("media", filename)
