@@ -318,3 +318,70 @@ button:hover {
 }
 
 
+/* Загальні стилі для навбару */
+.navbar {
+    background-color: #212529; /* Темний фон навбару */
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    color: #c0c0c0; /* Сріблястий колір тексту */
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: color 0.3s ease; /* Плавний перехід кольору */
+}
+
+.navbar-brand:hover {
+    color: #000000; /* Чорний колір при наведенні */
+}
+
+.navbar-toggler {
+    border: none;
+    outline: none;
+    background-color: #343a40; /* Темний фон для кнопки */
+    border-radius: 5px;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 0.5%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Стилі для навігаційних посилань */
+.nav-link {
+
+    font-size: 1rem;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #adb5bd;
+}
+
+.nav-link.active {
+    color: #ffc107; /* Колір активного посилання */
+}
+
+/* Випадаюче меню */
+.nav-item .btn-dark {
+    color: #ffffff;
+    background-color: #343a40;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    font-size: 16px;
+}
+
+
+
+
+
+ }
+}
+
+
+
+

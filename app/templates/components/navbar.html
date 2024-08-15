@@ -19,6 +19,23 @@
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('add_sneaker')}}">Add Sneaker</a>
             </li>
+
+
+
+       <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Categories
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% for category in categories %}
+                  <li><a class="dropdown-item" href="{{ url_for('sneakers_by_category', category_id=category.id) }}">{{ category.name }}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+
+
+
+
           {% else %}
 
             <li class="nav-item">

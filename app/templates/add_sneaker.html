@@ -4,25 +4,57 @@
 <body>
 
 <form action="{{ url_for('add_sneaker') }}" method="POST" enctype="multipart/form-data">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
 
-        <label for="description">Description:</label>
-        <input type="text" id="description" name="description" required>
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.name.label }}<br>
+            {{ form.name(size=32) }}<br>
+            {% for error in form.name.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.description.label }}<br>
+            {{ form.description(size=64) }}<br>
+            {% for error in form.description.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.prize.label }}<br>
+            {{ form.prize(size=32) }}<br>
+            {% for error in form.prize.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.gender.label }}<br>
+            {{ form.gender() }}<br>
+            {% for error in form.gender.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.category_id.label }}<br>
+            {{ form.category_id() }}<br>
+            {% for error in form.category_id.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.image.label }}<br>
+            {{ form.image() }}<br>
+            {% for error in form.image.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.submit() }}
+        </div>
 
-        <label for="prize">Prize:</label>
-        <input type="number" id="prize" name="prize" step="1" required>
 
-        <label for="gender">Gender:</label>
-        <select id="gender" name="gender" required>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-        </select>
 
-        <label for="image">Image:</label>
-        <input type="file" id="image" name="image" required>
 
-        <button type="submit">Add Sneaker</button>
     </form>
 </body>
 
