@@ -1,4 +1,5 @@
 from flask import Flask, send_from_directory
+from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from flask_login import LoginManager
@@ -17,7 +18,7 @@ class Base(DeclarativeBase):
 db = SQLAlchemy(model_class=Base)
 
 db.init_app(app)
-
+migrate = Migrate(app, db)
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
 

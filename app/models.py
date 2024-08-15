@@ -1,6 +1,6 @@
 from app import db
 from flask_login import UserMixin
-from sqlalchemy import String
+from sqlalchemy import String, Enum
 from sqlalchemy.orm import mapped_column, Mapped
 import sqlalchemy as sa
 
