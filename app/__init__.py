@@ -18,6 +18,7 @@ class Base(DeclarativeBase):
 db = SQLAlchemy(model_class=Base)
 
 db.init_app(app)
+target_metadata = db.metadata
 migrate = Migrate(app, db)
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
@@ -37,3 +38,6 @@ from app.filter import *
 @app.route("/media/<path:filename>")
 def media(filename):
     return send_from_directory("media", filename)
+
+
+

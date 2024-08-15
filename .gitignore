@@ -5,3 +5,6 @@ __pycache__/
 instance
 app/media/
 media
+alembic.ini
+migrations
+

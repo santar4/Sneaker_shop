@@ -2,13 +2,13 @@ import os
 from io import BytesIO
 
 from flask import render_template, flash, redirect, url_for, request, send_file
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 
 from app import app, User, db,  models
-from app.models import Sneaker, Category
+from app.models import Sneaker, Category, Cart, CartItem
 from app.forms import SignUpForm, LoginForm, SneakerForm
 
 
@@ -100,12 +100,54 @@ def female():
 
 
 
-@app.route('/details/<int:id_shoes>')
+@app.route('/details/<int:id_shoes>', methods=['GET', 'POST'])
 def details_shoes(id_shoes):
-    data_shoes = db.get_or_404(models.Sneaker, id_shoes)
+    sneaker = db.get_or_404(Sneaker, id_shoes)
     categories = Category.query.all()
-    return render_template("details_shoes.html",
-                           sneaker=data_shoes, categories=categories)
+    sizes = ['36', '37', '38', '39', '40', '41', '42', '43', '44', '45']
+
+    if request.method == 'POST':
+        selected_size = request.form.get('size')
+        quantity = int(request.form.get('quantity', 1))
+
+        if current_user.is_authenticated:
+            cart = Cart.query.filter_by(user_id=current_user.id).first()
+            if cart is None:
+                cart = Cart(user_id=current_user.id)
+                db.session.add(cart)
+                db.session.commit()
+
+            cart_item = CartItem.query.filter_by(cart_id=cart.id, sneaker_id=sneaker.id, size=selected_size).first()
+            if cart_item:
+                cart_item.quantity += quantity
+            else:
+                cart_item = CartItem(cart_id=cart.id, sneaker_id=sneaker.id, size=selected_size, quantity=quantity)
+                db.session.add(cart_item)
+            db.session.commit()
+            flash(f'Добавлена {quantity} пара кросівок за розміром {selected_size} до Кошика!', 'success')
+        else:
+            flash('You need to log in to add items to your cart.', 'danger')
+
+        return redirect(url_for('details_shoes', id_shoes=sneaker.id))
+
+
+    return render_template("details_shoes.html", sneaker=sneaker, categories=categories, sizes=sizes)
+
+
+@app.route('/cart')
+@login_required
+def view_cart():
+    cart = Cart.query.filter_by(user_id=current_user.id).first()
+
+    if cart:
+        items = CartItem.query.filter_by(cart_id=cart.id).all()
+        total = sum(int(item.quantity) * float(item.sneaker.prize) for item in items)
+    else:
+        items = []
+        total = 0.0
+
+    return render_template('cart.html', cart=cart, items=items, total=total)
+
 
 @app.route("/signup/", methods=["GET", "POST"])
 def signup():

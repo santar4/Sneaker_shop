@@ -5,12 +5,13 @@ from sqlalchemy.orm import mapped_column, Mapped, relationship
 import sqlalchemy as sa
 
 class User(UserMixin, db.Model):
-    __tablename__ = "user"
+    __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     nickname: Mapped[str] = mapped_column(String(25))
     email: Mapped[str] = mapped_column(String(50), unique=True)
     password: Mapped[int] = mapped_column(String(50))
+    carts = relationship('Cart', back_populates='user')
 
     def __repr__(self):
         return f"User: {self.nickname}"
@@ -49,3 +50,31 @@ class Category(db.Model):
 
     def __repr__(self):
         return f"<Category(name={self.name})>"
+
+
+class Cart(db.Model):
+    __tablename__ = 'carts'
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    user = relationship('User', back_populates='carts')
+    items = relationship('CartItem', back_populates='cart')
+
+
+    def __repr__(self):
+        return f"<Cart {self.id}>"
+
+class CartItem(db.Model):
+    __tablename__ = 'cart_items'
+
+    id = Column(Integer, primary_key=True)
+    cart_id = Column(Integer, ForeignKey('carts.id'), nullable=False)
+    sneaker_id = Column(Integer, ForeignKey('sneakers.id'), nullable=False)
+    size = Column(String(5), nullable=False)
+    quantity = Column(Integer, default=1)
+
+    cart = relationship('Cart', back_populates='items')
+    sneaker = relationship('Sneaker')
+
+    def __repr__(self):
+        return f"<CartItem {self.id}>"

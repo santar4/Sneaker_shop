@@ -14,6 +14,17 @@
         <p class="sneaker-prize"><strong>Prize:</strong> {{ sneaker.prize }}₴</p> <!-- Додано клас "sneaker-prize" -->
         <p><strong>Gender:</strong> {{ sneaker.gender }}</p>
     </div>
+     <div class="sneaker-size">
+        <form  method="POST">
+            <label for="size">Select Size:</label>
+            <select id="size" name="size" required>
+                {% for size in sizes %}
+                    <option value="{{ size }}">{{ size }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary">Add to Cart</button>
+        </form>
+    </div>
 </div>
 
 
