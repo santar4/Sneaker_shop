@@ -7,7 +7,7 @@ Resume Project
 Коли ви скачаєте проєкт вам буде потрібно у консолі ввести
 
 ```python
-pip install -r requrenments.txt
+pip install -r requirements.txt
 ```
 Для того щоб скачати всі необхідні бібліотеки
 
