@@ -7,14 +7,15 @@ from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 
-from app import app, User, db,  models
+from app import app, User, db, models
 from app.models import Sneaker, Category, Cart, CartItem
 from app.forms import SignUpForm, LoginForm, SneakerForm
 
 
 @app.route("/")
 def index():
-    return  render_template("index.html")
+    return render_template("index.html")
+
 
 @app.route('/add-sneaker', methods=['GET', 'POST'])
 def add_sneaker():
@@ -66,11 +67,7 @@ def add_sneaker():
             else:
                 return redirect(url_for('female'))
 
-
-
-
     return render_template('add_sneaker.html', form=form)
-
 
 
 @app.route('/category/<int:category_id>')
@@ -79,6 +76,15 @@ def sneakers_by_category(category_id):
     category = Category.query.get_or_404(category_id)
     categories = Category.query.all()
     return render_template('sneakers_by_category.html', sneakers=sneakers, category=category, categories=categories)
+
+@app.route('/all_genders')
+def all_genders():
+    all_shoes = db.session.execute(
+        db.select(models.Sneaker).filter(models.Sneaker.gender.in_(["Male", "Female"]))
+    ).scalars().all()
+    categories = Category.query.all()
+    return render_template("all_shoes_.html", all_sh=all_shoes, categories=categories)
+
 @app.route('/male')
 def male():
     all_shoes = db.session.execute(
@@ -88,7 +94,6 @@ def male():
     return render_template("all_shoes_.html", all_sh=all_shoes, categories=categories)
 
 
-
 @app.route('/female')
 def female():
     all_shoes = db.session.execute(
@@ -96,8 +101,6 @@ def female():
     ).scalars().all()
     categories = Category.query.all()
     return render_template("all_shoes_.html", all_sh=all_shoes, categories=categories)
-
-
 
 
 @app.route('/details/<int:id_shoes>', methods=['GET', 'POST'])
@@ -130,11 +133,10 @@ def details_shoes(id_shoes):
 
         return redirect(url_for('details_shoes', id_shoes=sneaker.id))
 
-
     return render_template("details_shoes.html", sneaker=sneaker, categories=categories, sizes=sizes)
 
 
-@app.route('/cart')
+@app.route('/cart/')
 @login_required
 def view_cart():
     cart = Cart.query.filter_by(user_id=current_user.id).first()
@@ -147,6 +149,13 @@ def view_cart():
         total = 0.0
 
     return render_template('cart.html', cart=cart, items=items, total=total)
+
+
+@app.route('/create_order', methods=['POST'])
+@login_required
+def create_order():
+    flash('Замовлення створено', 'success')
+    return redirect(url_for('all_genders'))
 
 
 @app.route("/signup/", methods=["GET", "POST"])
@@ -167,6 +176,7 @@ def signup():
         db.session.commit()
         return redirect(url_for("login"))
     return render_template("user/signup.html", form=form, title="Signup")
+
 
 @app.route("/login/", methods=["GET", "POST"])
 def login():
